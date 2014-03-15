@@ -1,0 +1,12 @@
+{
+    "name": "lonesatoshi/exchangeapi",
+    "description": "Exchange API library",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Matthew Baggett",
+            "email": "matthew@baggett.me"
+        }
+    ]
+}
