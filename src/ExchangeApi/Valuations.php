@@ -20,20 +20,33 @@ class Valuations{
       }
     }
     foreach($average_datapoints as $key => $average_datapoint_group){
-      $averages[$key] = number_format(array_sum($average_datapoint_group) / count($average_datapoint_group),10);
+      $averages[$key] = array(
+        'avg' => number_format(array_sum($average_datapoint_group) / count($average_datapoint_group),10),
+        'source_count' => count($average_datapoint_group)
+      );
     }
     foreach($averages as $key => $average){
       $key = explode("-", $key, 2);
-      self::$valuations['Average'][$key[0]][$key[1]] = array('price' => $average);
+      self::$valuations['Average'][$key[0]][$key[1]] = array(
+        'price' => $average['avg'],
+        'source_count' => $average['source_count']
+      );
     }
   }
 
   static public function get_price($from, $to, $amount){
+    $from = strtoupper($from);
+    $to = strtoupper($to);
     $rate = self::get_rate($from, $to);
     return $amount * $rate;
   }
 
   static public function get_rate($from, $to){
+    $from = strtoupper($from);
+    $to = strtoupper($to);
+    if($from == $to){
+      return 1;
+    }
     if(count(self::$valuations) == 0){
       self::fetch();
     }
