@@ -7,7 +7,8 @@ class Exchanges{
     return array(
       "Cryptsy",
       //"Kraken",
-      "CoinsE"
+      "CoinsE",
+      "LocalBitcoins"
     );
   }
 }

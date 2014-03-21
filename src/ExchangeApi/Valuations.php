@@ -4,8 +4,13 @@ namespace ExchangeApi;
 
 class Valuations{
   static $valuations = array();
+  const APC_KEY = 'ExchangeApiCache';
 
   static public function fetch(){
+    if(apc_exists(self::APC_KEY)){
+      self::$valuations = apc_fetch(self::APC_KEY);
+      return;
+    }
     foreach(Exchanges::get_exchange_list() as $exchange){
       $name = "\\ExchangeApi\\{$exchange}\\Valuations";
       self::$valuations[$exchange] = $name::fetch();
@@ -32,6 +37,7 @@ class Valuations{
         'source_count' => $average['source_count']
       );
     }
+    apc_add(self::APC_KEY,self::$valuations,60);
   }
 
   static public function get_price($from, $to, $amount){
@@ -54,6 +60,18 @@ class Valuations{
     if(isset(self::$valuations['Average'][$from][$to]['price'])){
       return self::$valuations['Average'][$from][$to]['price'];
     }else{
+      // Where a direct conversion is unavailable, attempt via BTC
+      if(isset(self::$valuations['Average'][$from]['BTC']['price']) && isset(self::$valuations['Average'][$to]['BTC']['price'])){
+        $from_btc = self::$valuations['Average'][$from]['BTC']['price'];
+        $to_btc = self::$valuations['Average'][$to]['BTC']['price'];
+        $to_btc_flip = 1/$to_btc;
+        //echo "1 {$from} in BTC = {$from_btc} <br />";
+        //echo "1 BTC in {$to} = {$to_btc} <br />";
+        //echo "1 {$to} in BTC = {$to_btc_flip} <br />";
+        $rate = $from_btc * $to_btc;
+        //echo "1 {$from} in {$to} = {$rate} <br />";
+        return $rate;
+      }
       throw new Exception("Cannot exchange {$from} to {$to}, unsupported");
     }
 
