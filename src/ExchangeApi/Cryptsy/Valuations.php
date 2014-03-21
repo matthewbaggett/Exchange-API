@@ -7,6 +7,7 @@ class Valuations{
   static public function fetch(){
     $client = new \Guzzle\Http\Client();
     $response = $client->get('http://pubapi.cryptsy.com/api.php?method=marketdatav2');
-    var_dump($response);exit;
+    $json = $response->getResponseBody();
+    krumo(json_decode($json));exit;
   }
 }
