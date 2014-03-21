@@ -7,8 +7,8 @@ class Valuations{
   const APC_KEY = 'ExchangeApiCache';
 
   static public function fetch(){
-    if(apc_exists(self::APC_KEY)){
-      self::$valuations = apc_fetch(self::APC_KEY);
+    if(\apc_exists(self::APC_KEY)){
+      self::$valuations = \apc_fetch(self::APC_KEY);
       return;
     }
     foreach(Exchanges::get_exchange_list() as $exchange){
@@ -37,7 +37,7 @@ class Valuations{
         'source_count' => $average['source_count']
       );
     }
-    apc_add(self::APC_KEY,self::$valuations,60);
+    \apc_add(self::APC_KEY,self::$valuations,60);
   }
 
   static public function get_price($from, $to, $amount){
