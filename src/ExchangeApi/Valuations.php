@@ -26,6 +26,23 @@ class Valuations{
       $key = explode("-", $key, 2);
       self::$valuations['Average'][$key[0]][$key[1]] = array('price' => $average);
     }
-    krumo(self::$valuations);exit;
+  }
+
+  static public function get_price($from, $to, $amount){
+    $rate = self::get_rate($from, $to);
+    return $amount * $rate;
+  }
+
+  static public function get_rate($from, $to){
+    if(count(self::$valuations) == 0){
+      self::fetch();
+    }
+
+    if(isset(self::$valuations['Average'][$from][$to]['price'])){
+      return self::$valuations['Average'][$from][$to]['price'];
+    }else{
+      throw new Exception("Cannot exchange {$from} to {$to}, unsupported");
+    }
+
   }
 }
