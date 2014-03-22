@@ -59,6 +59,8 @@ class Valuations{
 
     if(isset(self::$valuations['Average'][$from][$to]['price'])){
       return self::$valuations['Average'][$from][$to]['price'];
+    }elseif(isset(self::$valuations['Average'][$to][$from]['price'])){
+      return 1/self::$valuations['Average'][$to][$from]['price'];
     }else{
       // Where a direct conversion is unavailable, attempt via BTC
       if(isset(self::$valuations['Average'][$from]['BTC']['price']) && isset(self::$valuations['Average'][$to]['BTC']['price'])){
