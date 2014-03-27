@@ -60,12 +60,16 @@ class Valuations{
 
     //echo "[{$from}][{$to}] ";
     if($from == $to){
+      echo "A";
       $valuation = 1;
     }elseif(isset(self::$valuations['Average'][$from][$to]['price'])){
+      echo "B";
       $valuation = self::$valuations['Average'][$from][$to]['price'];
     }elseif(isset(self::$valuations['Average'][$to][$from]['price'])){
+      echo "C";
       $valuation = 1/self::$valuations['Average'][$to][$from]['price'];
     }else{
+      echo "D";
       // Where a direct conversion is unavailable, attempt via BTC
       if(isset(self::$valuations['Average'][$from]['BTC']['price']) && isset(self::$valuations['Average'][$to]['BTC']['price'])){
         $from_btc = self::$valuations['Average'][$from]['BTC']['price'];
