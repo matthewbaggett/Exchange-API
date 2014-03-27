@@ -60,8 +60,8 @@ class Valuations{
 
     //echo "[{$from}][{$to}] ";
     if($from == $to){
-      echo "A";
-      //$valuation = 1;
+      //echo "A";
+      $valuation = 1;
     }elseif(isset(self::$valuations['Average'][$from][$to]['price'])){
       //echo "B";
       $valuation = self::$valuations['Average'][$from][$to]['price'];
