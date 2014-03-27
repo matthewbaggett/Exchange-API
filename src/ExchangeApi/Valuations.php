@@ -45,6 +45,7 @@ class Valuations{
     $to = strtoupper($to);
     echo "get_price($from, $to, $amount): ";
     $rate = self::get_rate($from, $to);
+    echo $rate . "<br />";
     return $amount * $rate;
   }
 
@@ -56,7 +57,7 @@ class Valuations{
       self::fetch();
     }
 
-    echo "[{$from}][{$to}] ";
+    //echo "[{$from}][{$to}] ";
     if($from == $to){
       $valuation = 1;
     }elseif(isset(self::$valuations['Average'][$from][$to]['price'])){
@@ -77,7 +78,7 @@ class Valuations{
         $valuation = $rate;
       }
     }
-    echo $valuation . "<br />";
+    //echo $valuation . "<br />";
     return $valuation;
 
   }
