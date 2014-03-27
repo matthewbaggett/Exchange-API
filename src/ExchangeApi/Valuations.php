@@ -57,6 +57,7 @@ class Valuations{
       self::fetch();
     }
 
+    echo "[{$from}][{$to}]<br />";
     if(isset(self::$valuations['Average'][$from][$to]['price'])){
       return self::$valuations['Average'][$from][$to]['price'];
     }elseif(isset(self::$valuations['Average'][$to][$from]['price'])){
