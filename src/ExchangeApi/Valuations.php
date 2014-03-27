@@ -43,6 +43,7 @@ class Valuations{
   static public function get_price($from, $to, $amount){
     $from = strtoupper($from);
     $to = strtoupper($to);
+    echo "get_price($from, $to, $amount): ";
     $rate = self::get_rate($from, $to);
     return $amount * $rate;
   }
