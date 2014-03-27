@@ -43,10 +43,10 @@ class Valuations{
   static public function get_price($from, $to, $amount){
     $from = strtoupper($from);
     $to = strtoupper($to);
-    echo "get_price($from, $to, $amount): ";
+    //echo "get_price($from, $to, $amount): ";
     $rate = self::get_rate($from, $to);
     $result = $amount * $rate;
-    echo "{$amount} @ {$rate} = {$result} <br />";
+    //echo "{$amount} @ {$rate} = {$result} <br />";
     return $result;
   }
 
@@ -61,15 +61,15 @@ class Valuations{
     //echo "[{$from}][{$to}] ";
     if($from == $to){
       echo "A";
-      $valuation = 1;
+      //$valuation = 1;
     }elseif(isset(self::$valuations['Average'][$from][$to]['price'])){
-      echo "B";
+      //echo "B";
       $valuation = self::$valuations['Average'][$from][$to]['price'];
     }elseif(isset(self::$valuations['Average'][$to][$from]['price'])){
-      echo "C";
+      //echo "C";
       $valuation = self::$valuations['Average'][$to][$from]['price'];
     }else{
-      echo "D";
+      //echo "D";
       // Where a direct conversion is unavailable, attempt via BTC
       if(isset(self::$valuations['Average'][$from]['BTC']['price']) && isset(self::$valuations['Average'][$to]['BTC']['price'])){
         $from_btc = self::$valuations['Average'][$from]['BTC']['price'];
