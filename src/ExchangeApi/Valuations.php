@@ -67,7 +67,7 @@ class Valuations{
       $valuation = self::$valuations['Average'][$from][$to]['price'];
     }elseif(isset(self::$valuations['Average'][$to][$from]['price'])){
       echo "C";
-      $valuation = 1/self::$valuations['Average'][$to][$from]['price'];
+      $valuation = self::$valuations['Average'][$to][$from]['price'];
     }else{
       echo "D";
       // Where a direct conversion is unavailable, attempt via BTC
