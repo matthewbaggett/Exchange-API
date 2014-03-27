@@ -50,15 +50,15 @@ class Valuations{
   static public function get_rate($from, $to){
     $from = strtoupper($from);
     $to = strtoupper($to);
-    if($from == $to){
-      return 1;
-    }
+
     if(count(self::$valuations) == 0){
       self::fetch();
     }
 
     echo "[{$from}][{$to}] ";
-    if(isset(self::$valuations['Average'][$from][$to]['price'])){
+    if($from == $to){
+      $valuation = 1;
+    }elseif(isset(self::$valuations['Average'][$from][$to]['price'])){
       $valuation = self::$valuations['Average'][$from][$to]['price'];
     }elseif(isset(self::$valuations['Average'][$to][$from]['price'])){
       $valuation = 1/self::$valuations['Average'][$to][$from]['price'];
