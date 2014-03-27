@@ -57,11 +57,11 @@ class Valuations{
       self::fetch();
     }
 
-    echo "[{$from}][{$to}]<br />";
+    echo "[{$from}][{$to}] ";
     if(isset(self::$valuations['Average'][$from][$to]['price'])){
-      return self::$valuations['Average'][$from][$to]['price'];
+      $valuation = self::$valuations['Average'][$from][$to]['price'];
     }elseif(isset(self::$valuations['Average'][$to][$from]['price'])){
-      return 1/self::$valuations['Average'][$to][$from]['price'];
+      $valuation = 1/self::$valuations['Average'][$to][$from]['price'];
     }else{
       // Where a direct conversion is unavailable, attempt via BTC
       if(isset(self::$valuations['Average'][$from]['BTC']['price']) && isset(self::$valuations['Average'][$to]['BTC']['price'])){
@@ -73,10 +73,11 @@ class Valuations{
         //echo "1 {$to} in BTC = {$to_btc_flip} <br />";
         $rate = $from_btc * $to_btc;
         //echo "1 {$from} in {$to} = {$rate} <br />";
-        return $rate;
+        $valuation = $rate;
       }
-      throw new Exception("Cannot exchange {$from} to {$to}, unsupported");
     }
+    echo $valuation . "<br />";
+    return $valuation;
 
   }
 }
