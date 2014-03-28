@@ -9,7 +9,7 @@ class Valuations{
   static public function fetch(){
     if(\apc_exists(self::APC_KEY)){
       self::$valuations = \apc_fetch(self::APC_KEY);
-      return;
+      return false;
     }
     foreach(Exchanges::get_exchange_list() as $exchange){
       $name = "\\ExchangeApi\\{$exchange}\\Valuations";
@@ -38,6 +38,11 @@ class Valuations{
       );
     }
     \apc_add(self::APC_KEY,self::$valuations,60);
+    return true;
+  }
+
+  static public function get_data(){
+    return self::$valuations;
   }
 
   static public function get_price($from, $to, $amount){
