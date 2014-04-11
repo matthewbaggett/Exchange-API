@@ -7,7 +7,7 @@ class Valuations{
   const APC_KEY = 'ExchangeApiCache';
 
   static public function fetch(){
-    if(\apc_exists(self::APC_KEY)){
+    if(function_exists('apc_exists') && \apc_exists(self::APC_KEY)){
       self::$valuations = \apc_fetch(self::APC_KEY);
       return false;
     }
@@ -37,7 +37,9 @@ class Valuations{
         'source_count' => $average['source_count']
       );
     }
-    \apc_add(self::APC_KEY,self::$valuations,60);
+    if(function_exists('apc_add')){
+      \apc_add(self::APC_KEY,self::$valuations,60);
+    }
     return true;
   }
 
